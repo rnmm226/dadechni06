@@ -1,0 +1,2181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daddechni - Your Complete Tunisia Experience Platform</title>
+    <meta name="description" content="Discover, book, and connect - all in one platform. The only app you need for exploring Tunisia.">
+    <meta name="theme-color" content="#D4AF37">
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" href="/icons/icon-192x192.png">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #D4AF37; /* Gold - Tunisian sun */
+            --secondary: #2C7873; /* Teal - Mediterranean */
+            --accent: #C64756; /* Coral - Traditional pottery */
+            --light: #F7F3E3; /* Cream - Desert sand */
+            --dark: #1A3C40; /* Deep teal - Architecture */
+            --success: #6A994E; /* Olive green */
+            --ai-bubble: #E8F4F8; /* Light blue */
+            --shadow: rgba(26, 60, 64, 0.1);
+            --competitive: #9C3848; /* Competitive advantage color */
+            --transport: #3A6B93; /* Transport blue */
+            --buddies: #8A4F7D; /* Travel buddies purple */
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        /* Like Button Styles */
+        .like-btn {
+            background: transparent;
+            border: 1px solid #ddd;
+            color: #666;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+        }
+        
+        .like-btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+        
+        .like-btn.liked {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: white;
+        }
+        
+        .like-btn.liked:hover {
+            background: #b53c4a;
+            border-color: #b53c4a;
+        }
+        
+        .like-btn i {
+            font-size: 1rem;
+        }
+        
+        /* Install Prompt */
+        .install-prompt {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+            z-index: 1001;
+            display: none;
+            align-items: center;
+            gap: 1rem;
+            border: 2px solid var(--primary);
+            max-width: 400px;
+            width: 90%;
+        }
+        
+        .install-prompt p {
+            margin: 0;
+            flex: 1;
+            font-weight: 500;
+        }
+        
+        .install-close {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            color: #999;
+        }
+        
+        .install-close:hover {
+            color: var(--accent);
+        }
+        
+        /* Competitive Advantage Banner */
+        .competitive-banner {
+            background: linear-gradient(135deg, var(--competitive), #7a2c3a);
+            color: white;
+            padding: 0.8rem 0;
+            text-align: center;
+            font-weight: 500;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .competitive-banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+        
+        .competitive-banner span {
+            background: var(--primary);
+            color: var(--dark);
+            padding: 0.2rem 0.8rem;
+            border-radius: 20px;
+            font-weight: bold;
+            margin: 0 0.5rem;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--secondary), var(--dark));
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 4px 12px var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .logo span {
+            color: var(--primary);
+        }
+        
+        .logo i {
+            color: var(--primary);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 1.5rem;
+            position: relative;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            padding: 0.5rem 0;
+            display: block;
+        }
+        
+        nav ul li a:hover {
+            color: var(--primary);
+        }
+        
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary);
+            transition: width 0.3s;
+        }
+        
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+        
+        .auth-buttons button {
+            background: transparent;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            padding: 0.5rem 1.5rem;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-left: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .auth-buttons button:hover {
+            background: var(--primary);
+            color: var(--dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(212, 175, 55, 0.3);
+        }
+        
+        .hero {
+            background: linear-gradient(rgba(26, 60, 64, 0.7), rgba(44, 120, 115, 0.7)), url('https://images.unsplash.com/photo-1539650116574-75c0c6d73f6e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 6rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23d4af37' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
+            opacity: 0.3;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .hero p {
+            font-size: 1.3rem;
+            max-width: 700px;
+            margin: 0 auto 2.5rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+        
+        .competitive-advantages {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+        
+        .advantage {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            padding: 1rem 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            border-left: 4px solid var(--primary);
+        }
+        
+        .advantage i {
+            color: var(--primary);
+            font-size: 1.5rem;
+        }
+        
+        .search-box {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 50px;
+            padding: 0.5rem;
+            max-width: 600px;
+            margin: 0 auto;
+            display: flex;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            border: 2px solid var(--primary);
+        }
+        
+        .search-box input {
+            flex: 1;
+            border: none;
+            padding: 1rem 1.5rem;
+            border-radius: 50px;
+            outline: none;
+            font-size: 1rem;
+            background: transparent;
+        }
+        
+        .search-box button {
+            background: var(--primary);
+            color: var(--dark);
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+        
+        .search-box button:hover {
+            background: var(--secondary);
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        .categories {
+            padding: 4rem 0;
+            background: white;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--secondary);
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: var(--primary);
+        }
+        
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        
+        .category-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px var(--shadow);
+            transition: all 0.3s;
+            cursor: pointer;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            position: relative;
+        }
+        
+        .category-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(26, 60, 64, 0.15);
+        }
+        
+        .exclusive-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--competitive);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            z-index: 2;
+        }
+        
+        .category-icon {
+            background: linear-gradient(135deg, var(--secondary), var(--dark));
+            color: white;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .category-icon::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.2), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s;
+        }
+        
+        .category-card:hover .category-icon::after {
+            transform: translateX(100%);
+        }
+        
+        .category-content {
+            padding: 1.8rem;
+            text-align: center;
+        }
+        
+        .category-content h3 {
+            margin-bottom: 0.8rem;
+            color: var(--secondary);
+        }
+        
+        .featured {
+            padding: 4rem 0;
+            background: var(--light);
+        }
+        
+        .featured-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .featured-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px var(--shadow);
+            transition: all 0.3s;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            position: relative;
+        }
+        
+        .featured-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(26, 60, 64, 0.15);
+        }
+        
+        .featured-img {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        
+        .featured-img::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 50%;
+            background: linear-gradient(transparent, rgba(26, 60, 64, 0.7));
+        }
+        
+        .featured-content {
+            padding: 1.8rem;
+        }
+        
+        .featured-content h3 {
+            margin-bottom: 0.8rem;
+            color: var(--secondary);
+        }
+        
+        .featured-content p {
+            color: #666;
+            margin-bottom: 1.2rem;
+        }
+        
+        .price {
+            font-weight: bold;
+            color: var(--accent);
+            font-size: 1.3rem;
+            margin-bottom: 1.2rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: var(--primary);
+            color: var(--dark);
+            padding: 0.8rem 1.8rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(212, 175, 55, 0.3);
+        }
+        
+        .btn:hover {
+            background: var(--secondary);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(44, 120, 115, 0.3);
+        }
+        
+        .btn-secondary {
+            background: var(--secondary);
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background: var(--dark);
+        }
+        
+        .btn-transport {
+            background: var(--transport);
+            color: white;
+        }
+        
+        .btn-transport:hover {
+            background: #2c5470;
+        }
+        
+        .btn-buddies {
+            background: var(--buddies);
+            color: white;
+        }
+        
+        .btn-buddies:hover {
+            background: #6d3d61;
+        }
+        
+        .btn-ai {
+            background: var(--accent);
+            color: white;
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 6px 20px rgba(198, 71, 86, 0.4);
+            z-index: 99;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(198, 71, 86, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 15px rgba(198, 71, 86, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(198, 71, 86, 0);
+            }
+        }
+        
+        .btn-ai i {
+            font-size: 1.8rem;
+        }
+        
+        .competitive-section {
+            padding: 4rem 0;
+            background: white;
+        }
+        
+        .competitive-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .competitive-feature {
+            background: var(--light);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 5px 15px var(--shadow);
+            border-top: 4px solid var(--competitive);
+            transition: all 0.3s;
+        }
+        
+        .competitive-feature:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(26, 60, 64, 0.15);
+        }
+        
+        .competitive-feature i {
+            font-size: 2.5rem;
+            color: var(--competitive);
+            margin-bottom: 1rem;
+        }
+        
+        .competitive-feature h3 {
+            color: var(--dark);
+            margin-bottom: 1rem;
+        }
+        
+        /* Transport Section */
+        .transport-section {
+            padding: 4rem 0;
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            display: none;
+        }
+        
+        .transport-section.active {
+            display: block;
+        }
+        
+        .transport-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .transport-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px var(--shadow);
+            transition: all 0.3s;
+            border: 1px solid rgba(58, 107, 147, 0.2);
+        }
+        
+        .transport-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(58, 107, 147, 0.15);
+        }
+        
+        .transport-header {
+            background: linear-gradient(135deg, var(--transport), #2c5470);
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+        }
+        
+        .transport-header i {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .transport-content {
+            padding: 1.5rem;
+        }
+        
+        .transport-route {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .route-from, .route-to {
+            text-align: center;
+        }
+        
+        .route-from h4, .route-to h4 {
+            color: var(--transport);
+            margin-bottom: 0.5rem;
+        }
+        
+        .route-arrow {
+            display: flex;
+            align-items: center;
+            color: var(--primary);
+            font-size: 1.5rem;
+        }
+        
+        .transport-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .detail-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #666;
+        }
+        
+        .detail-item i {
+            color: var(--transport);
+        }
+        
+        .transport-price {
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+        }
+        
+        /* Latest Events Section */
+        .latest-events {
+            padding: 3rem 0;
+            background: var(--light);
+        }
+        
+        .events-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .event-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px var(--shadow);
+            transition: all 0.3s;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+        
+        .event-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(26, 60, 64, 0.15);
+        }
+        
+        .event-img {
+            height: 180px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        
+        .event-date {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background: var(--primary);
+            color: var(--dark);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-weight: bold;
+            text-align: center;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+        }
+        
+        .event-date .day {
+            font-size: 1.5rem;
+            line-height: 1;
+        }
+        
+        .event-date .month {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+        }
+        
+        .event-content {
+            padding: 1.5rem;
+        }
+        
+        .event-content h3 {
+            color: var(--secondary);
+            margin-bottom: 0.8rem;
+        }
+        
+        .event-meta {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .event-meta span {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+        
+        .event-meta i {
+            color: var(--primary);
+        }
+        
+        .event-price {
+            font-weight: bold;
+            color: var(--accent);
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+        
+        /* Travel Buddies Section */
+        .buddies-section {
+            padding: 4rem 0;
+            background: white;
+            display: none;
+        }
+        
+        .buddies-section.active {
+            display: block;
+        }
+        
+        .buddies-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .buddy-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px var(--shadow);
+            transition: all 0.3s;
+            border: 1px solid rgba(138, 79, 125, 0.2);
+        }
+        
+        .buddy-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(138, 79, 125, 0.15);
+        }
+        
+        .buddy-header {
+            background: linear-gradient(135deg, var(--buddies), #6d3d61);
+            color: white;
+            padding: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .buddy-avatar {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid white;
+        }
+        
+        .buddy-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .buddy-info h3 {
+            margin-bottom: 0.3rem;
+        }
+        
+        .buddy-info p {
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+        
+        .buddy-content {
+            padding: 1.5rem;
+        }
+        
+        .buddy-trip {
+            margin-bottom: 1.5rem;
+        }
+        
+        .buddy-trip h4 {
+            color: var(--buddies);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .buddy-trip p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .buddy-interests {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .interest-tag {
+            background: rgba(138, 79, 125, 0.1);
+            color: var(--buddies);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            border: 1px solid rgba(138, 79, 125, 0.2);
+        }
+        
+        .buddy-actions {
+            display: flex;
+            gap: 0.8rem;
+        }
+        
+        footer {
+            background: linear-gradient(135deg, var(--dark), #152a2d);
+            color: white;
+            padding: 4rem 0 1.5rem;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2.5rem;
+            margin-bottom: 2.5rem;
+        }
+        
+        .footer-column h3 {
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+            position: relative;
+            display: inline-block;
+        }
+        
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background: var(--primary);
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-column ul li a {
+            color: #ddd;
+            text-decoration: none;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .footer-column ul li a:hover {
+            color: var(--primary);
+            transform: translateX(5px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+        
+        /* AI Assistant Styles */
+        .ai-assistant {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 380px;
+            height: 550px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            z-index: 1000;
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+            border: 2px solid var(--primary);
+        }
+        
+        .ai-header {
+            background: linear-gradient(135deg, var(--secondary), var(--dark));
+            color: white;
+            padding: 1.2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .ai-title {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+        
+        .ai-title i {
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+        
+        .ai-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.3rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .ai-close:hover {
+            color: var(--primary);
+            transform: rotate(90deg);
+        }
+        
+        .ai-messages {
+            flex: 1;
+            padding: 1.5rem;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+            background: var(--light);
+        }
+        
+        .message {
+            max-width: 85%;
+            padding: 1rem 1.2rem;
+            border-radius: 18px;
+            line-height: 1.5;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        
+        .ai-message {
+            background: var(--ai-bubble);
+            align-self: flex-start;
+            border-bottom-left-radius: 5px;
+            color: var(--dark);
+            border: 1px solid rgba(44, 120, 115, 0.1);
+        }
+        
+        .user-message {
+            background: linear-gradient(135deg, var(--secondary), var(--dark));
+            color: white;
+            align-self: flex-end;
+            border-bottom-right-radius: 5px;
+        }
+        
+        .ai-input {
+            display: flex;
+            padding: 1.2rem;
+            border-top: 1px solid #eee;
+            background: white;
+        }
+        
+        .ai-input input {
+            flex: 1;
+            padding: 0.8rem 1.2rem;
+            border: 1px solid #ddd;
+            border-radius: 30px;
+            outline: none;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        
+        .ai-input input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.2);
+        }
+        
+        .ai-input button {
+            background: var(--primary);
+            color: var(--dark);
+            border: none;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            margin-left: 0.8rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .ai-input button:hover {
+            background: var(--secondary);
+            color: white;
+            transform: rotate(15deg);
+        }
+        
+        .quick-questions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            margin-top: 0.8rem;
+        }
+        
+        .quick-question {
+            background: rgba(255, 255, 255, 0.7);
+            border: 1px solid rgba(44, 120, 115, 0.2);
+            border-radius: 15px;
+            padding: 0.5rem 0.9rem;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .quick-question:hover {
+            background: var(--secondary);
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(26, 60, 64, 0.8);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-content {
+            background: white;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 500px;
+            padding: 2.5rem;
+            position: relative;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+            border: 2px solid var(--primary);
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 1.2rem;
+            right: 1.2rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #999;
+            transition: all 0.3s;
+        }
+        
+        .close-modal:hover {
+            color: var(--accent);
+            transform: rotate(90deg);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.6rem;
+            font-weight: 500;
+            color: var(--secondary);
+        }
+        
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 0.9rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.2);
+            outline: none;
+        }
+        
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            nav ul {
+                margin-top: 1rem;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 1rem;
+            }
+            
+            nav ul li {
+                margin: 0;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .competitive-advantages {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .ai-assistant {
+                width: 100%;
+                height: 100%;
+                bottom: 0;
+                right: 0;
+                border-radius: 0;
+            }
+            
+            .btn-ai {
+                bottom: 1rem;
+                right: 1rem;
+                width: 60px;
+                height: 60px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Install Prompt -->
+    <div class="install-prompt" id="installPrompt">
+        <p>Install Daddechni for better experience</p>
+        <button class="btn" id="installBtn">Install</button>
+        <button class="install-close" id="closeInstallPrompt">×</button>
+    </div>
+
+    <!-- Competitive Advantage Banner -->
+    <div class="competitive-banner">
+        <div class="container">
+            <p>🚀 <span>EXCLUSIVE</span> All-in-one Tunisia platform • AI Travel Assistant • Real-time bookings • Travel buddy matching</p>
+        </div>
+    </div>
+
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-map-marked-alt"></i>
+                    Dade<span>chni</span>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="#monuments"><i class="fas fa-landmark"></i> Monuments</a></li>
+                        <li><a href="#cinema"><i class="fas fa-film"></i> Cinema</a></li>
+                        <li><a href="#events"><i class="fas fa-calendar-alt"></i> Events</a></li>
+                        <li><a href="#restaurants"><i class="fas fa-utensils"></i> Restaurants</a></li>
+                        <li><a href="#entertainment"><i class="fas fa-theater-masks"></i> Entertainment</a></li>
+                        <li><a href="#" id="transportBtn"><i class="fas fa-bus"></i> Transport</a></li>
+                        <li><a href="#" id="buddiesBtn"><i class="fas fa-users"></i> Travel Buddies</a></li>
+                    </ul>
+                </nav>
+                <div class="auth-buttons">
+                    <button id="loginBtn"><i class="fas fa-sign-in-alt"></i> Login</button>
+                    <button id="registerBtn"><i class="fas fa-user-plus"></i> Register</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>Your Complete Tunisia Experience</h1>
+            <p>Discover, book, and connect - all in one platform. The only app you need for exploring Tunisia.</p>
+            
+            <div class="search-box">
+                <input type="text" placeholder="Search monuments, events, restaurants, transport...">
+                <button><i class="fas fa-search"></i> Search</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Transport Section -->
+    <section class="transport-section" id="transport">
+        <div class="container">
+            <h2 class="section-title">Transport Options in Tunisia</h2>
+            <p class="text-center" style="max-width: 800px; margin: 0 auto 2rem; color: #666;">
+                Compare prices, schedules, and book your transportation across Tunisia. From buses to trains and car rentals, we've got you covered.
+            </p>
+            
+            <div class="transport-options">
+                <div class="transport-card">
+                    <div class="transport-header">
+                        <i class="fas fa-train"></i>
+                        <h3>Train</h3>
+                    </div>
+                    <div class="transport-content">
+                        <div class="transport-route">
+                            <div class="route-from">
+                                <h4>Tunis</h4>
+                                <p>Central Station</p>
+                            </div>
+                            <div class="route-arrow">
+                                <i class="fas fa-long-arrow-alt-right"></i>
+                            </div>
+                            <div class="route-to">
+                                <h4>Sousse</h4>
+                                <p>Main Station</p>
+                            </div>
+                        </div>
+                        
+                        <div class="transport-details">
+                            <div class="detail-item">
+                                <i class="fas fa-clock"></i>
+                                <span>2h 30m</span>
+                            </div>
+                            <div class="detail-item">
+                                <i class="fas fa-calendar"></i>
+                                <span>Daily</span>
+                            </div>
+                            <div class="detail-item">
+                                <i class="fas fa-chair"></i>
+                                <span>Comfort Class</span>
+                            </div>
+                            <div class="detail-item">
+                                <i class="fas fa-wifi"></i>
+                                <span>Free WiFi</span>
+                            </div>
+                        </div>
+                        
+                        <div class="transport-price">15 TND</div>
+                        <div class="transport-actions" style="display: flex; gap: 0.8rem;">
+                            <button class="btn btn-transport" style="flex: 1;">
+                                <i class="fas fa-ticket-alt"></i> Book Train Ticket
+                            </button>
+                            <button class="like-btn">
+                                <i class="far fa-heart"></i> <span>Like</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="transport-card">
+                    <div class="transport-header">
+                        <i class="fas fa-bus"></i>
+                        <h3>Intercity Bus</h3>
+                    </div>
+                    <div class="transport-content">
+                        <div class="transport-route">
+                            <div class="route-from">
+                                <h4>Tunis</h4>
+                                <p>Bab Alioua</p>
+                            </div>
+                            <div class="route-arrow">
+                                <i class="fas fa-long-arrow-alt-right"></i>
+                            </div>
+                            <div class="route-to">
+                                <h4>Hammamet</h4>
+                                <p>Central Station</p>
+                            </div>
+                        </div>
+                        
+                        <div class="transport-details">
+                            <div class="detail-item">
+                                <i class="fas fa-clock"></i>
+                                <span>1h 15m</span>
+                            </div>
+                            <div class="detail-item">
+                                <i class="fas fa-calendar"></i>
+                                <span>Every 30 min</span>
+                            </div>
+                            <div class="detail-item">
+                                <i class="fas fa-snowflake"></i>
+                                <span>Air Conditioned</span>
+                            </div>
+                            <div class="detail-item">
+                                <i class="fas fa-suitcase"></i>
+                                <span>Luggage Space</span>
+                            </div>
+                        </div>
+                        
+                        <div class="transport-price">8 TND</div>
+                        <div class="transport-actions" style="display: flex; gap: 0.8rem;">
+                            <button class="btn btn-transport" style="flex: 1;">
+                                <i class="fas fa-ticket-alt"></i> Book Bus Ticket
+                            </button>
+                            <button class="like-btn">
+                                <i class="far fa-heart"></i> <span>Like</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="transport-card">
+                    <div class="transport-header">
+                        <i class="fas fa-car"></i>
+                        <h3>Car Rental</h3>
+                    </div>
+                    <div class="transport-content">
+                        <div class="transport-route">
+                            <div class="route-from">
+                                <h4>Pick-up</h4>
+                                <p>Tunis Airport</p>
+                            </div>
+                            <div class="route-arrow">
+                                <i class="fas fa-long-arrow-alt-right"></i>
+                            </div>
+                            <div class="route-to">
+                                <h4>Drop-off</h4>
+                                <p>Any Location</p>
+                            </div>
+                        </div>
+                        
+                        <div class="transport-details">
+                            <div class="detail-item">
+                                <i class="fas fa-clock"></i>
+                                <span>24/7</span>
+                            </div>
+                            <div class="detail-item">
+                                <i class="fas fa-user-friends"></i>
+                                <span>Up to 5 people</span>
+                            </div>
+                            <div class="detail-item">
+                                <i class="fas fa-gas-pump"></i>
+                                <span>Full Tank</span>
+                            </div>
+                            <div class="detail-item">
+                                <i class="fas fa-shield-alt"></i>
+                                <span>Insurance Included</span>
+                            </div>
+                        </div>
+                        
+                        <div class="transport-price">From 80 TND/day</div>
+                        <div class="transport-actions" style="display: flex; gap: 0.8rem;">
+                            <button class="btn btn-transport" style="flex: 1;">
+                                <i class="fas fa-car"></i> Rent a Car
+                            </button>
+                            <button class="like-btn">
+                                <i class="far fa-heart"></i> <span>Like</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 3rem;">
+                <h3>Need help choosing the best transport option?</h3>
+                <p style="margin-bottom: 1.5rem; color: #666;">Our AI assistant can recommend the perfect transportation based on your budget and schedule.</p>
+                <button class="btn" onclick="askAI('What is the best way to get from Tunis to Sousse?')">
+                    <i class="fas fa-robot"></i> Ask AI Assistant
+                </button>
+            </div>
+        </div>
+    </section>
+    
+
+    <!-- Travel Buddies Section -->
+    <section class="buddies-section" id="buddies">
+        <div class="container">
+            <h2 class="section-title">Find Your Travel Buddies</h2>
+            <p class="text-center" style="max-width: 800px; margin: 0 auto 2rem; color: #666;">
+                Connect with fellow travelers, share experiences, and find companions for your adventures across Tunisia.
+            </p>
+            
+            <div class="buddies-grid">
+                <div class="buddy-card">
+                    <div class="buddy-header">
+                        <div class="buddy-avatar">
+                            <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="Sarah">
+                        </div>
+                        <div class="buddy-info">
+                            <h3>Sarah, 28</h3>
+                            <p><i class="fas fa-map-marker-alt"></i> From France</p>
+                        </div>
+                    </div>
+                    <div class="buddy-content">
+                        <div class="buddy-trip">
+                            <h4><i class="fas fa-route"></i> Planned Trip</h4>
+                            <p>Exploring the Sahara Desert (Dec 15-20)</p>
+                        </div>
+                        <div class="buddy-interests">
+                            <span class="interest-tag">Photography</span>
+                            <span class="interest-tag">Hiking</span>
+                            <span class="interest-tag">Local Cuisine</span>
+                            <span class="interest-tag">History</span>
+                        </div>
+                        <div class="buddy-actions">
+                            <button class="btn btn-buddies" style="flex: 1;">
+                                <i class="fas fa-user-plus"></i> Connect
+                            </button>
+                            <button class="like-btn">
+                                <i class="far fa-heart"></i> <span>Like</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="buddy-card">
+                    <div class="buddy-header">
+                        <div class="buddy-avatar">
+                            <img src="https://randomuser.me/api/portraits/men/54.jpg" alt="Marco">
+                        </div>
+                        <div class="buddy-info">
+                            <h3>Marco, 35</h3>
+                            <p><i class="fas fa-map-marker-alt"></i> From Italy</p>
+                        </div>
+                    </div>
+                    <div class="buddy-content">
+                        <div class="buddy-trip">
+                            <h4><i class="fas fa-route"></i> Planned Trip</h4>
+                            <p>Coastal road trip from Tunis to Djerba (Jan 5-12)</p>
+                        </div>
+                        <div class="buddy-interests">
+                            <span class="interest-tag">Road Trips</span>
+                            <span class="interest-tag">Beaches</span>
+                            <span class="interest-tag">Seafood</span>
+                            <span class="interest-tag">Adventure</span>
+                        </div>
+                        <div class="buddy-actions">
+                            <button class="btn btn-buddies" style="flex: 1;">
+                                <i class="fas fa-user-plus"></i> Connect
+                            </button>
+                            <button class="like-btn">
+                                <i class="far fa-heart"></i> <span>Like</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="buddy-card">
+                    <div class="buddy-header">
+                        <div class="buddy-avatar">
+                            <img src="https://randomuser.me/api/portraits/women/67.jpg" alt="Lina">
+                        </div>
+                        <div class="buddy-info">
+                            <h3>Lina, 26</h3>
+                            <p><i class="fas fa-map-marker-alt"></i> From Germany</p>
+                        </div>
+                    </div>
+                    <div class="buddy-content">
+                        <div class="buddy-trip">
+                            <h4><i class="fas fa-route"></i> Planned Trip</h4>
+                            <p>Cultural tour of Tunis & Carthage (Dec 28 - Jan 3)</p>
+                        </div>
+                        <div class="buddy-interests">
+                            <span class="interest-tag">Museums</span>
+                            <span class="interest-tag">Architecture</span>
+                            <span class="interest-tag">Local Markets</span>
+                            <span class="interest-tag">Coffee Shops</span>
+                        </div>
+                        <div class="buddy-actions">
+                            <button class="btn btn-buddies" style="flex: 1;">
+                                <i class="fas fa-user-plus"></i> Connect
+                            </button>
+                            <button class="like-btn">
+                                <i class="far fa-heart"></i> <span>Like</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 3rem;">
+                <h3>Looking for someone to travel with?</h3>
+                <p style="margin-bottom: 1.5rem; color: #666;">Create a profile and let other travelers find you based on shared interests and travel plans.</p>
+                <button class="btn btn-buddies">
+                    <i class="fas fa-user-plus"></i> Create Travel Buddy Profile
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <section class="competitive-section">
+        <div class="container">
+            <h2 class="section-title">Why Choose Dadechni?</h2>
+            <div class="competitive-features">
+                <div class="competitive-feature">
+                    <i class="fas fa-layer-group"></i>
+                    <h3>All-in-One Platform</h3>
+                    <p>No need to switch between multiple apps. We combine monuments, events, restaurants, transport, and social features in one place.</p>
+                </div>
+                <div class="competitive-feature">
+                    <i class="fas fa-robot"></i>
+                    <h3>AI-Powered Recommendations</h3>
+                    <p>Our intelligent assistant learns your preferences and suggests personalized experiences you'll love.</p>
+                </div>
+                <div class="competitive-feature">
+                    <i class="fas fa-user-friends"></i>
+                    <h3>Travel Community</h3>
+                    <p>Connect with fellow travelers, share experiences, and find companions for your adventures.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Latest Events Section -->
+    <section class="latest-events">
+        <div class="container">
+            <h2 class="section-title">Latest Events in Tunisia</h2>
+            <div class="events-grid">
+                <div class="event-card">
+                    <div class="event-img" style="background-image: url('https://images.unsplash.com/photo-1540575467063-178a50c2df87?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')">
+                        <div class="event-date">
+                            <div class="day">15</div>
+                            <div class="month">Dec</div>
+                        </div>
+                    </div>
+                    <div class="event-content">
+                        <h3>Carthage International Festival</h3>
+                        <div class="event-meta">
+                            <span><i class="fas fa-map-marker-alt"></i> Carthage Amphitheater</span>
+                            <span><i class="fas fa-clock"></i> 8:00 PM</span>
+                        </div>
+                        <p>Annual music and arts festival featuring international artists at the historic Roman amphitheater.</p>
+                        <div class="event-price">From 25 TND</div>
+                        <div class="event-actions" style="display: flex; gap: 0.8rem;">
+                            <a href="#" class="btn" style="flex: 1;"><i class="fas fa-ticket-alt"></i> Book Tickets</a>
+                            <button class="like-btn">
+                                <i class="far fa-heart"></i> <span>Like</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="event-card">
+                    <div class="event-img" style="background-image: url('https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')">
+                        <div class="event-date">
+                            <div class="day">22</div>
+                            <div class="month">Dec</div>
+                        </div>
+                    </div>
+                    <div class="event-content">
+                        <h3>Tabarka Jazz Festival</h3>
+                        <div class="event-meta">
+                            <span><i class="fas fa-map-marker-alt"></i> Tabarka, Jendouba</span>
+                            <span><i class="fas fa-clock"></i> 7:30 PM</span>
+                        </div>
+                        <p>International jazz artists perform in the beautiful coastal town of Tabarka. Three days of amazing music.</p>
+                        <div class="event-price">From 30 TND</div>
+                        <div class="event-actions" style="display: flex; gap: 0.8rem;">
+                            <a href="#" class="btn" style="flex: 1;"><i class="fas fa-ticket-alt"></i> Book Tickets</a>
+                            <button class="like-btn">
+                                <i class="far fa-heart"></i> <span>Like</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="event-card">
+                    <div class="event-img" style="background-image: url('https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')">
+                        <div class="event-date">
+                            <div class="day">28</div>
+                            <div class="month">Dec</div>
+                        </div>
+                    </div>
+                    <div class="event-content">
+                        <h3>Douz International Festival</h3>
+                        <div class="event-meta">
+                            <span><i class="fas fa-map-marker-alt"></i> Douz, Kebili</span>
+                            <span><i class="fas fa-clock"></i> All Day</span>
+                        </div>
+                        <p>Celebration of Saharan culture with camel races, traditional music, and desert experiences.</p>
+                        <div class="event-price">From 15 TND</div>
+                        <div class="event-actions" style="display: flex; gap: 0.8rem;">
+                            <a href="#" class="btn" style="flex: 1;"><i class="fas fa-ticket-alt"></i> Book Tickets</a>
+                            <button class="like-btn">
+                                <i class="far fa-heart"></i> <span>Like</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="categories">
+        <div class="container">
+            <h2 class="section-title">Explore Tunisia</h2>
+            <div class="category-grid">
+                <div class="category-card" onclick="showSection('monuments')">
+                    <div class="exclusive-badge">AI Guide</div>
+                    <div class="category-icon">🏛️</div>
+                    <div class="category-content">
+                        <h3>Monuments & Places</h3>
+                        <p>Discover historical sites with AI-guided tours and augmented reality features</p>
+                    </div>
+                </div>
+                <div class="category-card" onclick="showSection('cinema')">
+                    <div class="category-icon">🎬</div>
+                    <div class="category-content">
+                        <h3>Cinema & Movies</h3>
+                        <p>Find movie theaters, showtimes, and exclusive film events</p>
+                    </div>
+                </div>
+                <div class="category-card" onclick="showSection('events')">
+                    <div class="exclusive-badge">Live Booking</div>
+                    <div class="category-icon">🎪</div>
+                    <div class="category-content">
+                        <h3>Events</h3>
+                        <p>Browse events, check prices and make instant reservations</p>
+                    </div>
+                </div>
+                <div class="category-card" onclick="showSection('restaurants')">
+                    <div class="exclusive-badge">Digital Menus</div>
+                    <div class="category-icon">🍽️</div>
+                    <div class="category-content">
+                        <h3>Restaurants</h3>
+                        <p>Explore menus, make reservations, and get exclusive discounts</p>
+                    </div>
+                </div>
+                <div class="category-card" onclick="showSection('entertainment')">
+                    <div class="category-icon">🎡</div>
+                    <div class="category-content">
+                        <h3>Entertainment</h3>
+                        <p>Public parks, attraction parks, and family activities</p>
+                    </div>
+                </div>
+                <div class="category-card" onclick="showTransportSection()">
+                    <div class="exclusive-badge">Real-time</div>
+                    <div class="category-icon">🚗</div>
+                    <div class="category-content">
+                        <h3>Transport</h3>
+                        <p>Compare prices and book cars, buses, and flights in one place</p>
+                    </div>
+                </div>
+                <div class="category-card" onclick="showBuddiesSection()">
+                    <div class="exclusive-badge">EXCLUSIVE</div>
+                    <div class="category-icon">👥</div>
+                    <div class="category-content">
+                        <h3>Travel Buddies</h3>
+                        <p>Find verified companions for your adventures across Tunisia</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Assistant -->
+    <button class="btn btn-ai" id="aiToggle">
+        <i class="fas fa-robot"></i>
+    </button>
+
+    <div class="ai-assistant" id="aiAssistant">
+        <div class="ai-header">
+            <div class="ai-title">
+                <i class="fas fa-robot"></i>
+                <h3>Daddechni Assistant</h3>
+            </div>
+            <button class="ai-close" id="aiClose">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="ai-messages" id="aiMessages">
+            <div class="message ai-message">
+                <strong>Hello! I'm your Daddechni assistant.</strong> How can I help you discover Tunisia today?
+                <div class="quick-questions">
+                    <div class="quick-question" onclick="askAI('Recommend historical sites in Tunis')">Historical sites in Tunis</div>
+                    <div class="quick-question" onclick="askAI('Find restaurants with traditional food')">Traditional restaurants</div>
+                    <div class="quick-question" onclick="askAI('Events this weekend')">Weekend events</div>
+                    <div class="quick-question" onclick="askAI('Transport options to Sousse')">Transport to Sousse</div>
+                </div>
+            </div>
+        </div>
+        <div class="ai-input">
+            <input type="text" id="aiInput" placeholder="Ask me about Tunisia...">
+            <button id="aiSend"><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <span class="close-modal" id="closeLogin">&times;</span>
+            <h2>Login to Daddechni</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="loginEmail">Email</label>
+                    <input type="email" id="loginEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" required>
+                </div>
+                <button type="submit" class="btn">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div class="modal" id="registerModal">
+        <div class="modal-content">
+            <span class="close-modal" id="closeRegister">&times;</span>
+            <h2>Create an Account</h2>
+            <form id="registerForm">
+                <div class="form-group">
+                    <label for="registerName">Full Name</label>
+                    <input type="text" id="registerName" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerEmail">Email</label>
+                    <input type="email" id="registerEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerPassword">Password</label>
+                    <input type="password" id="registerPassword" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerConfirm">Confirm Password</label>
+                    <input type="password" id="registerConfirm" required>
+                </div>
+                <button type="submit" class="btn">Register</button>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Daddechni</h3>
+                    <p>Your guide to discovering the best of Tunisia - from historical monuments to modern entertainment.</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#monuments"><i class="fas fa-chevron-right"></i> Monuments</a></li>
+                        <li><a href="#cinema"><i class="fas fa-chevron-right"></i> Cinema</a></li>
+                        <li><a href="#events"><i class="fas fa-chevron-right"></i> Events</a></li>
+                        <li><a href="#restaurants"><i class="fas fa-chevron-right"></i> Restaurants</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Explore</h3>
+                    <ul>
+                        <li><a href="#entertainment"><i class="fas fa-chevron-right"></i> Entertainment</a></li>
+                        <li><a href="#" onclick="showTransportSection()"><i class="fas fa-chevron-right"></i> Transport</a></li>
+                        <li><a href="#" onclick="showBuddiesSection()"><i class="fas fa-chevron-right"></i> Travel Buddies</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Regions of Tunisia</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Us</h3>
+                    <ul>
+                        <li><i class="fas fa-envelope"></i> info@dadechni.tn</li>
+                        <li><i class="fas fa-phone"></i> +216 12 345 678</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Tunis, Tunisia</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 Daddechni. All rights reserved. | Discover Tunisia with us</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // PWA Service Worker Registration
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(function(registration) {
+                        console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                    })
+                    .catch(function(error) {
+                        console.log('ServiceWorker registration failed: ', error);
+                    });
+            });
+        }
+
+        // Install Prompt
+        let deferredPrompt;
+        const installPrompt = document.getElementById('installPrompt');
+        const installBtn = document.getElementById('installBtn');
+        const closeInstallPrompt = document.getElementById('closeInstallPrompt');
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+            // Prevent the mini-infobar from appearing on mobile
+            e.preventDefault();
+            // Stash the event so it can be triggered later
+            deferredPrompt = e;
+            // Show the install prompt
+            setTimeout(() => {
+                installPrompt.style.display = 'flex';
+            }, 3000);
+        });
+
+        installBtn.addEventListener('click', async () => {
+            if (deferredPrompt) {
+                // Show the install prompt
+                deferredPrompt.prompt();
+                // Wait for the user to respond to the prompt
+                const { outcome } = await deferredPrompt.userChoice;
+                if (outcome === 'accepted') {
+                    console.log('User accepted the install prompt');
+                } else {
+                    console.log('User dismissed the install prompt');
+                }
+                // Clear the saved prompt since it can't be used again
+                deferredPrompt = null;
+                // Hide the install prompt
+                installPrompt.style.display = 'none';
+            }
+        });
+
+        closeInstallPrompt.addEventListener('click', () => {
+            installPrompt.style.display = 'none';
+        });
+
+        window.addEventListener('appinstalled', () => {
+            // Clear the deferredPrompt so it can be garbage collected
+            deferredPrompt = null;
+            // Hide the install prompt
+            installPrompt.style.display = 'none';
+            console.log('PWA was installed');
+        });
+
+        // Wait for DOM to be fully loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // Like button functionality
+            document.addEventListener('click', function(e) {
+                if (e.target.closest('.like-btn')) {
+                    const likeBtn = e.target.closest('.like-btn');
+                    const heartIcon = likeBtn.querySelector('i');
+                    const likeText = likeBtn.querySelector('span');
+                    
+                    if (likeBtn.classList.contains('liked')) {
+                        likeBtn.classList.remove('liked');
+                        heartIcon.className = 'far fa-heart';
+                        likeText.textContent = 'Like';
+                    } else {
+                        likeBtn.classList.add('liked');
+                        heartIcon.className = 'fas fa-heart';
+                        likeText.textContent = 'Liked';
+                    }
+                }
+            });
+            
+            // Transport functionality
+            const transportBtn = document.getElementById('transportBtn');
+            const transportSection = document.getElementById('transport');
+            
+            function showTransportSection() {
+                // Hide all other sections first
+                document.querySelectorAll('section').forEach(section => {
+                    section.classList.remove('active');
+                });
+                
+                // Show transport section
+                transportSection.classList.add('active');
+                
+                // Scroll to transport section
+                transportSection.scrollIntoView({ behavior: 'smooth' });
+            }
+            
+            if (transportBtn) {
+                transportBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    showTransportSection();
+                });
+            }
+            
+            // Buddies functionality
+            const buddiesBtn = document.getElementById('buddiesBtn');
+            const buddiesSection = document.getElementById('buddies');
+            
+            function showBuddiesSection() {
+                // Hide all other sections first
+                document.querySelectorAll('section').forEach(section => {
+                    section.classList.remove('active');
+                });
+                
+                // Show buddies section
+                buddiesSection.classList.add('active');
+                
+                // Scroll to buddies section
+                buddiesSection.scrollIntoView({ behavior: 'smooth' });
+            }
+            
+            if (buddiesBtn) {
+                buddiesBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    showBuddiesSection();
+                });
+            }
+            
+            // Modal functionality
+            const loginBtn = document.getElementById('loginBtn');
+            const registerBtn = document.getElementById('registerBtn');
+            const loginModal = document.getElementById('loginModal');
+            const registerModal = document.getElementById('registerModal');
+            const closeLogin = document.getElementById('closeLogin');
+            const closeRegister = document.getElementById('closeRegister');
+
+            // Check if elements exist before adding event listeners
+            if (loginBtn && loginModal) {
+                loginBtn.addEventListener('click', () => {
+                    loginModal.style.display = 'flex';
+                });
+            }
+
+            if (registerBtn && registerModal) {
+                registerBtn.addEventListener('click', () => {
+                    registerModal.style.display = 'flex';
+                });
+            }
+
+            if (closeLogin && loginModal) {
+                closeLogin.addEventListener('click', () => {
+                    loginModal.style.display = 'none';
+                });
+            }
+
+            if (closeRegister && registerModal) {
+                closeRegister.addEventListener('click', () => {
+                    registerModal.style.display = 'none';
+                });
+            }
+
+            // Close modals when clicking outside
+            window.addEventListener('click', (e) => {
+                if (loginModal && e.target === loginModal) {
+                    loginModal.style.display = 'none';
+                }
+                if (registerModal && e.target === registerModal) {
+                    registerModal.style.display = 'none';
+                }
+            });
+
+            // Form submissions
+            const loginForm = document.getElementById('loginForm');
+            const registerForm = document.getElementById('registerForm');
+
+            if (loginForm) {
+                loginForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    alert('Login functionality would be implemented here');
+                    if (loginModal) loginModal.style.display = 'none';
+                });
+            }
+
+            if (registerForm) {
+                registerForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    alert('Registration functionality would be implemented here');
+                    if (registerModal) registerModal.style.display = 'none';
+                });
+            }
+
+            // Function to show specific sections
+            function showSection(sectionId) {
+                const element = document.getElementById(sectionId);
+                if (element) {
+                    element.scrollIntoView({ behavior: 'smooth' });
+                }
+            }
+
+            // AI Assistant functionality
+            const aiToggle = document.getElementById('aiToggle');
+            const aiAssistant = document.getElementById('aiAssistant');
+            const aiClose = document.getElementById('aiClose');
+            const aiMessages = document.getElementById('aiMessages');
+            const aiInput = document.getElementById('aiInput');
+            const aiSend = document.getElementById('aiSend');
+
+            if (aiToggle && aiAssistant) {
+                aiToggle.addEventListener('click', () => {
+                    aiAssistant.style.display = 'flex';
+                });
+            }
+
+            if (aiClose && aiAssistant) {
+                aiClose.addEventListener('click', () => {
+                    aiAssistant.style.display = 'none';
+                });
+            }
+
+            // AI responses database
+            const aiResponses = {
+                'historical sites in tunis': 'In Tunis, I recommend visiting:<br>1. Medina of Tunis (UNESCO site)<br>2. Bardo Museum (amazing mosaics)<br>3. Zitouna Mosque<br>4. Cathedral of St. Vincent de Paul<br>5. Dar Ben Abdullah Museum',
+                'traditional restaurants': 'For authentic Tunisian cuisine, try:<br>1. Dar El Jeld (Tunis) - Upscale traditional<br>2. Le Baroque (Sidi Bou Said) - With sea view<br>3. Fondouk El Attarine (Medina) - Historic setting<br>4. Restaurant Le Malouf (Tunis) - Local specialties',
+                'events this weekend': 'This weekend in Tunisia:<br>1. Carthage Music Festival - Various artists (25 TND)<br>2. Sousse Cultural Nights - Traditional performances (Free)<br>3. Hammamet International Festival - Music & theater (20 TND)<br>4. Djerba Ulysse Festival - Cultural events (15 TND)',
+                'transport to sousse': 'Transport options to Sousse:<br><strong>By Train:</strong> From Tunis, 2.5 hours, 15 TND<br><strong>By Bus:</strong> From Tunis, 3 hours, 12 TND<br><strong>By Louage:</strong> Shared taxi, 2 hours, 20 TND<br><strong>By Car:</strong> Rent from 80 TND/day',
+                'beaches in tunisia': 'Best beaches in Tunisia:<br>1. Sidi Bou Said - Picturesque blue & white<br>2. Hammamet - Long sandy beaches<br>3. Djerba - White sand & clear water<br>4. Tabarka - Rocky coastline & diving<br>5. Mahdia - Quiet & traditional',
+                'budget accommodation': 'Budget-friendly accommodations:<br>1. Hotel Marhaba (Tunis) - From 60 TND/night<br>2. Dar Saad (Sidi Bou Said) - Guesthouse, 80 TND<br>3. Hotel Les Oliviers (Sousse) - From 70 TND<br>4. Residence Karim (Djerba) - Apartments, 90 TND',
+                'desert tours': 'Sahara desert tours from:<br>1. Douz - Camel treks, 50 TND/day<br>2. Tozeur - 4x4 excursions, 80 TND<br>3. Tataouine - Star Wars locations, 60 TND<br>4. Ksar Ghilane - Oasis & hot springs, 100 TND',
+                'family activities': 'Family-friendly activities:<br>1. Carthage Land (Hammamet) - Amusement park<br>2. Friguia Park (Zaghouan) - Zoo & shows<br>3. Djerba Explore Park - Crocodile farm & heritage<br>4. Sousse Archaeological Museum - Kid-friendly exhibits',
+                'travel buddies': 'You can find travel companions in our Travel Buddies section!<br>1. Create a profile with your interests<br>2. Browse other travelers looking for companions<br>3. Connect with people who share your travel style<br>4. Plan trips together and share experiences'
+            };
+
+            // Default responses
+            const defaultResponses = [
+                "I'd be happy to help you with that! Could you provide more details about what you're looking for?",
+                "That's an interesting question! Let me check our database for the best options for you.",
+                "Tunisia has so much to offer! Could you specify which region you're interested in?",
+                "I have several recommendations for that. Are you looking for budget options or more premium experiences?"
+            ];
+
+            function askAI(question) {
+                // Add user message
+                addMessage(question, 'user');
+                
+                // Clear input
+                if (aiInput) aiInput.value = '';
+                
+                // Simulate AI thinking
+                setTimeout(() => {
+                    let response = "I'm not sure about that. Could you try asking in a different way?";
+                    
+                    // Check if we have a predefined response
+                    const lowerQuestion = question.toLowerCase();
+                    for (const key in aiResponses) {
+                        if (lowerQuestion.includes(key)) {
+                            response = aiResponses[key];
+                            break;
+                        }
+                    }
+                    
+                    // If no specific response, use a default one
+                    if (response === "I'm not sure about that. Could you try asking in a different way?") {
+                        const randomIndex = Math.floor(Math.random() * defaultResponses.length);
+                        response = defaultResponses[randomIndex];
+                    }
+                    
+                    addMessage(response, 'ai');
+                }, 1000);
+            }
+
+            function addMessage(text, sender) {
+                if (!aiMessages) return;
+                
+                const messageDiv = document.createElement('div');
+                messageDiv.className = `message ${sender}-message`;
+                messageDiv.innerHTML = text;
+                aiMessages.appendChild(messageDiv);
+                aiMessages.scrollTop = aiMessages.scrollHeight;
+            }
+
+            if (aiSend) {
+                aiSend.addEventListener('click', () => {
+                    if (aiInput && aiInput.value.trim() !== '') {
+                        askAI(aiInput.value);
+                    }
+                });
+            }
+
+            if (aiInput) {
+                aiInput.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter' && aiInput.value.trim() !== '') {
+                        askAI(aiInput.value);
+                    }
+                });
+            }
+
+            // Initial greeting
+            setTimeout(() => {
+                if (!localStorage.getItem('aiGreeted')) {
+                    addMessage("Welcome to Daddechni! I'm here to help you discover the best of Tunisia. You can ask me about monuments, events, restaurants, transport, or anything else you'd like to know!", 'ai');
+                    localStorage.setItem('aiGreeted', 'true');
+                }
+            }, 2000);
+            
+            // Make function globally available
+            window.showTransportSection = showTransportSection;
+            window.showBuddiesSection = showBuddiesSection;
+            window.askAI = askAI;
+            window.showSection = showSection;
+        });
+    </script>
+</body>
+</html>
