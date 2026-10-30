@@ -1,12 +1,15 @@
 {
-  "name": "Daddechni - Tunisia Experience",
-  "short_name": "Daddechni",
+  "name": "Dadechni - Tunisia Experience",
+  "short_name": "Dadechni",
   "description": "Your complete Tunisia experience platform - discover, book, and connect",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#F7F3E3",
   "theme_color": "#D4AF37",
   "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "en",
+  "categories": ["travel", "entertainment", "social"],
   "icons": [
     {
       "src": "/icons/icon-72x72.png",
@@ -36,7 +39,8 @@
     {
       "src": "/icons/icon-192x192.png",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     },
     {
       "src": "/icons/icon-384x384.png",
@@ -46,9 +50,8 @@
     {
       "src": "/icons/icon-512x512.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     }
-  ],
-  "categories": ["travel", "entertainment", "social"],
-  "lang": "en"
+  ]
 }

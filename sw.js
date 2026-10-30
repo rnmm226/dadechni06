@@ -1,4 +1,4 @@
-const CACHE_NAME = 'dadechni-v1.0';
+const CACHE_NAME = 'dadechni-v2.0';
 const urlsToCache = [
   '/',
   '/index.html',
