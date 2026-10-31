@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Daddechni - Your Complete Tunisia Experience Platform</title>
     <meta name="description" content="Discover, book, and connect - all in one platform. The only app you need for exploring Tunisia.">
-    <meta name="theme-color" content="#D4AF37">
+    <meta name="theme-color" content="#7B3F00">
     
     <!-- PWA Manifest -->
     <link rel="manifest" href="manifest.json">
@@ -13,32 +13,41 @@
     <link rel="apple-touch-icon" href="/icons/icon-192x192.png">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #D4AF37; /* Gold - Tunisian sun */
-            --secondary: #2C7873; /* Teal - Mediterranean */
-            --accent: #C64756; /* Coral - Traditional pottery */
-            --light: #F7F3E3; /* Cream - Desert sand */
-            --dark: #1A3C40; /* Deep teal - Architecture */
-            --success: #6A994E; /* Olive green */
-            --ai-bubble: #E8F4F8; /* Light blue */
-            --shadow: rgba(26, 60, 64, 0.1);
-            --competitive: #9C3848; /* Competitive advantage color */
-            --transport: #3A6B93; /* Transport blue */
-            --buddies: #8A4F7D; /* Travel buddies purple */
+            --primary:     #C8860A; /* Saffron gold — Tunisian spice markets */
+            --secondary:   #7B3F00; /* Deep terracotta brown — medina walls */
+            --accent:      #D2691E; /* Burnt sienna — pottery & zellige */
+            --light:       #FAF3E0; /* Warm parchment — desert sand */
+            --mid:         #EDD9A3; /* Sahara dune — mid-tone sand */
+            --dark:        #2B1A0E; /* Deep espresso — olive wood */
+            --olive:       #6B6E30; /* Olive grove green — Sfax landscapes */
+            --rose:        #C0392B; /* Tunisian flag red */
+            --ai-bubble:   #FDF0DC; /* Warm ivory */
+            --shadow:      rgba(43, 26, 14, 0.12);
+            --competitive: #7B3F00;
+            --transport:   #4A6741; /* Olive transport */
+            --buddies:     #8B4513; /* Saddle brown */
+            --card-border: rgba(200, 134, 10, 0.25);
         }
         
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Lato', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         
         body {
             background-color: var(--light);
             color: var(--dark);
             line-height: 1.6;
+            background-image: url("data:image/svg+xml,%3Csvg width='52' height='26' viewBox='0 0 52 26' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c8860a' fill-opacity='0.04'%3E%3Cpath d='M10 10c0-2.21-1.79-4-4-4-3.314 0-6-2.686-6-6h2c0 2.21 1.79 4 4 4 3.314 0 6 2.686 6 6 0 2.21 1.79 4 4 4 3.314 0 6 2.686 6 6 0 2.21 1.79 4 4 4v2c-3.314 0-6-2.686-6-6 0-2.21-1.79-4-4-4-3.314 0-6-2.686-6-6zm25.464-1.95l8.486 8.486-1.414 1.414-8.486-8.486 1.414-1.414z' /%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        h1, h2, h3, .logo {
+            font-family: 'Cinzel', Georgia, serif;
         }
         
         /* Like Button Styles */
@@ -115,13 +124,14 @@
         
         /* Competitive Advantage Banner */
         .competitive-banner {
-            background: linear-gradient(135deg, var(--competitive), #7a2c3a);
-            color: white;
+            background: linear-gradient(135deg, var(--secondary), var(--dark));
+            color: var(--mid);
             padding: 0.8rem 0;
             text-align: center;
             font-weight: 500;
             position: relative;
             overflow: hidden;
+            border-bottom: 2px solid var(--primary);
         }
         
         .competitive-banner::before {
@@ -141,16 +151,16 @@
             border-radius: 20px;
             font-weight: bold;
             margin: 0 0.5rem;
-        }
-        
+        }        
         header {
             background: linear-gradient(135deg, var(--secondary), var(--dark));
             color: white;
             padding: 1rem 0;
-            box-shadow: 0 4px 12px var(--shadow);
+            box-shadow: 0 4px 16px var(--shadow);
             position: sticky;
             top: 0;
             z-index: 100;
+            border-bottom: 3px solid var(--primary);
         }
         
         .container {
@@ -221,29 +231,32 @@
         
         .auth-buttons button {
             background: transparent;
-            border: 1px solid var(--primary);
+            border: 2px solid var(--primary);
             color: var(--primary);
             padding: 0.5rem 1.5rem;
-            border-radius: 30px;
+            border-radius: 6px;
             cursor: pointer;
             transition: all 0.3s;
             margin-left: 0.5rem;
-            font-weight: 500;
+            font-weight: 600;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
         }
         
         .auth-buttons button:hover {
             background: var(--primary);
-            color: var(--dark);
+            color: white;
             transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(212, 175, 55, 0.3);
+            box-shadow: 0 4px 8px rgba(200, 134, 10, 0.3);
         }
         
         .hero {
-            background: linear-gradient(rgba(26, 60, 64, 0.7), rgba(44, 120, 115, 0.7)), url('https://images.unsplash.com/photo-1539650116574-75c0c6d73f6e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background: linear-gradient(rgba(43, 26, 14, 0.65), rgba(123, 63, 0, 0.55)),
+                        url('https://images.unsplash.com/photo-1568322445389-f64ac2515020?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
             background-size: cover;
             background-position: center;
             color: white;
-            padding: 6rem 0;
+            padding: 7rem 0;
             text-align: center;
             position: relative;
             overflow: hidden;
@@ -298,13 +311,13 @@
         }
         
         .search-box {
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 50px;
-            padding: 0.5rem;
-            max-width: 600px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 8px;
+            padding: 0.4rem;
+            max-width: 620px;
             margin: 0 auto;
             display: flex;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.25);
             border: 2px solid var(--primary);
         }
         
@@ -312,32 +325,35 @@
             flex: 1;
             border: none;
             padding: 1rem 1.5rem;
-            border-radius: 50px;
+            border-radius: 6px;
             outline: none;
             font-size: 1rem;
             background: transparent;
+            color: var(--dark);
         }
         
         .search-box button {
             background: var(--primary);
-            color: var(--dark);
+            color: white;
             border: none;
             padding: 1rem 2rem;
-            border-radius: 50px;
+            border-radius: 6px;
             cursor: pointer;
             transition: all 0.3s;
-            font-weight: 600;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            font-size: 0.85rem;
         }
         
         .search-box button:hover {
             background: var(--secondary);
-            color: white;
-            transform: translateY(-2px);
+            transform: translateY(-1px);
         }
         
         .categories {
             padding: 4rem 0;
-            background: white;
+            background: var(--mid);
         }
         
         .section-title {
@@ -348,6 +364,7 @@
             display: inline-block;
             left: 50%;
             transform: translateX(-50%);
+            font-family: 'Cinzel', Georgia, serif;
         }
         
         .section-title::after {
@@ -358,7 +375,8 @@
             transform: translateX(-50%);
             width: 80px;
             height: 3px;
-            background: var(--primary);
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            border-radius: 2px;
         }
         
         .category-grid {
@@ -374,7 +392,7 @@
             box-shadow: 0 5px 15px var(--shadow);
             transition: all 0.3s;
             cursor: pointer;
-            border: 1px solid rgba(212, 175, 55, 0.2);
+            border: 1px solid var(--card-border);
             position: relative;
         }
         
@@ -398,7 +416,7 @@
         
         .category-icon {
             background: linear-gradient(135deg, var(--secondary), var(--dark));
-            color: white;
+            color: var(--primary);
             height: 100px;
             display: flex;
             align-items: center;
@@ -451,7 +469,7 @@
             overflow: hidden;
             box-shadow: 0 5px 15px var(--shadow);
             transition: all 0.3s;
-            border: 1px solid rgba(212, 175, 55, 0.2);
+            border: 1px solid var(--card-border);
             position: relative;
         }
         
@@ -501,22 +519,25 @@
         .btn {
             display: inline-block;
             background: var(--primary);
-            color: var(--dark);
+            color: white;
             padding: 0.8rem 1.8rem;
-            border-radius: 30px;
+            border-radius: 6px;
             text-decoration: none;
-            font-weight: 600;
+            font-weight: 700;
             transition: all 0.3s;
             border: none;
             cursor: pointer;
-            box-shadow: 0 4px 8px rgba(212, 175, 55, 0.3);
+            box-shadow: 0 4px 10px rgba(200, 134, 10, 0.3);
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            font-size: 0.85rem;
         }
         
         .btn:hover {
             background: var(--secondary);
             color: white;
             transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(44, 120, 115, 0.3);
+            box-shadow: 0 6px 14px rgba(123, 63, 0, 0.35);
         }
         
         .btn-secondary {
@@ -534,7 +555,7 @@
         }
         
         .btn-transport:hover {
-            background: #2c5470;
+            background: #2e4028;
         }
         
         .btn-buddies {
@@ -543,7 +564,7 @@
         }
         
         .btn-buddies:hover {
-            background: #6d3d61;
+            background: #5c2d0a;
         }
         
         .btn-ai {
@@ -581,7 +602,7 @@
         
         .competitive-section {
             padding: 4rem 0;
-            background: white;
+            background: var(--light);
         }
         
         .competitive-features {
@@ -592,12 +613,12 @@
         }
         
         .competitive-feature {
-            background: var(--light);
+            background: white;
             border-radius: 12px;
             padding: 2rem;
             text-align: center;
             box-shadow: 0 5px 15px var(--shadow);
-            border-top: 4px solid var(--competitive);
+            border-top: 4px solid var(--primary);
             transition: all 0.3s;
         }
         
@@ -608,7 +629,7 @@
         
         .competitive-feature i {
             font-size: 2.5rem;
-            color: var(--competitive);
+            color: var(--primary);
             margin-bottom: 1rem;
         }
         
@@ -620,7 +641,7 @@
         /* Transport Section */
         .transport-section {
             padding: 4rem 0;
-            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            background: linear-gradient(135deg, var(--light), var(--mid));
             display: none;
         }
         
@@ -641,7 +662,7 @@
             overflow: hidden;
             box-shadow: 0 5px 15px var(--shadow);
             transition: all 0.3s;
-            border: 1px solid rgba(58, 107, 147, 0.2);
+            border: 1px solid rgba(74, 103, 65, 0.25);
         }
         
         .transport-card:hover {
@@ -650,7 +671,7 @@
         }
         
         .transport-header {
-            background: linear-gradient(135deg, var(--transport), #2c5470);
+            background: linear-gradient(135deg, var(--transport), #2e4028);
             color: white;
             padding: 1.5rem;
             text-align: center;
@@ -734,7 +755,7 @@
             overflow: hidden;
             box-shadow: 0 5px 15px var(--shadow);
             transition: all 0.3s;
-            border: 1px solid rgba(212, 175, 55, 0.2);
+            border: 1px solid var(--card-border);
         }
         
         .event-card:hover {
@@ -809,7 +830,7 @@
         /* Travel Buddies Section */
         .buddies-section {
             padding: 4rem 0;
-            background: white;
+            background: var(--light);
             display: none;
         }
         
@@ -830,7 +851,7 @@
             overflow: hidden;
             box-shadow: 0 5px 15px var(--shadow);
             transition: all 0.3s;
-            border: 1px solid rgba(138, 79, 125, 0.2);
+            border: 1px solid rgba(139, 69, 19, 0.2);
         }
         
         .buddy-card:hover {
@@ -839,7 +860,7 @@
         }
         
         .buddy-header {
-            background: linear-gradient(135deg, var(--buddies), #6d3d61);
+            background: linear-gradient(135deg, var(--buddies), #5c2d0a);
             color: white;
             padding: 1.5rem;
             display: flex;
@@ -884,8 +905,7 @@
             display: flex;
             align-items: center;
             gap: 0.5rem;
-        }
-        
+        }        
         .buddy-trip p {
             color: #666;
             font-size: 0.9rem;
@@ -899,12 +919,12 @@
         }
         
         .interest-tag {
-            background: rgba(138, 79, 125, 0.1);
+            background: rgba(139, 69, 19, 0.1);
             color: var(--buddies);
             padding: 0.3rem 0.8rem;
             border-radius: 20px;
             font-size: 0.8rem;
-            border: 1px solid rgba(138, 79, 125, 0.2);
+            border: 1px solid rgba(139, 69, 19, 0.2);
         }
         
         .buddy-actions {
@@ -913,9 +933,10 @@
         }
         
         footer {
-            background: linear-gradient(135deg, var(--dark), #152a2d);
+            background: linear-gradient(135deg, var(--dark), #1a0d06);
             color: white;
             padding: 4rem 0 1.5rem;
+            border-top: 4px solid var(--primary);
         }
         
         .footer-content {
@@ -996,6 +1017,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            border-bottom: 2px solid var(--primary);
         }
         
         .ai-title {
@@ -1075,7 +1097,7 @@
         
         .ai-input input:focus {
             border-color: var(--primary);
-            box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.2);
+            box-shadow: 0 0 0 2px rgba(200, 134, 10, 0.2);
         }
         
         .ai-input button {
@@ -1104,19 +1126,21 @@
         }
         
         .quick-question {
-            background: rgba(255, 255, 255, 0.7);
-            border: 1px solid rgba(44, 120, 115, 0.2);
-            border-radius: 15px;
-            padding: 0.5rem 0.9rem;
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(200, 134, 10, 0.25);
+            border-radius: 6px;
+            padding: 0.4rem 0.9rem;
             font-size: 0.8rem;
             cursor: pointer;
             transition: all 0.2s;
+            color: var(--secondary);
         }
         
         .quick-question:hover {
-            background: var(--secondary);
+            background: var(--primary);
             color: white;
             transform: translateY(-2px);
+            border-color: var(--primary);
         }
         
         /* Modal styles */
@@ -1127,7 +1151,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(26, 60, 64, 0.8);
+            background: rgba(43, 26, 14, 0.85);
             z-index: 1000;
             align-items: center;
             justify-content: center;
@@ -1142,8 +1166,7 @@
             position: relative;
             box-shadow: 0 15px 30px rgba(0,0,0,0.2);
             border: 2px solid var(--primary);
-        }
-        
+        }        
         .close-modal {
             position: absolute;
             top: 1.2rem;
@@ -1166,7 +1189,7 @@
         .form-group label {
             display: block;
             margin-bottom: 0.6rem;
-            font-weight: 500;
+            font-weight: 600;
             color: var(--secondary);
         }
         
@@ -1181,7 +1204,7 @@
         
         .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
             border-color: var(--primary);
-            box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.2);
+            box-shadow: 0 0 0 3px rgba(200, 134, 10, 0.15);
             outline: none;
         }
         
@@ -1273,9 +1296,72 @@
                 height: 60px;
             }
         }
+        /* Notification toast */
+        .toast {
+            position: fixed;
+            top: 1.5rem;
+            right: 1.5rem;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            color: white;
+            font-weight: 600;
+            z-index: 9999;
+            display: none;
+            align-items: center;
+            gap: 0.7rem;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+            animation: slideIn 0.3s ease;
+            max-width: 340px;
+        }
+        .toast.success { background: var(--olive); display: flex; }
+        .toast.error   { background: var(--rose);  display: flex; }
+        .toast.info    { background: var(--secondary); display: flex; }
+        @keyframes slideIn {
+            from { transform: translateX(120%); opacity: 0; }
+            to   { transform: translateX(0);    opacity: 1; }
+        }
+
+        /* Zellige decorative divider */
+        .zellige-divider {
+            height: 6px;
+            background: repeating-linear-gradient(
+                90deg,
+                var(--primary) 0px, var(--primary) 20px,
+                var(--accent)  20px, var(--accent)  40px,
+                var(--secondary) 40px, var(--secondary) 60px,
+                var(--olive)   60px, var(--olive)   80px
+            );
+            opacity: 0.6;
+        }
+
+        /* User greeting in header */
+        .user-greeting {
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: none;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .user-greeting.visible { display: flex; }
+        .logout-btn {
+            background: transparent;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            padding: 0.3rem 0.8rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: all 0.3s;
+            margin-left: 0.5rem;
+        }
+        .logout-btn:hover { background: var(--accent); color: white; }
     </style>
 </head>
 <body>
+    <!-- Toast notification -->
+    <div class="toast" id="toast"><i class="fas fa-check-circle"></i> <span id="toastMsg"></span></div>
+
     <!-- Install Prompt -->
     <div class="install-prompt" id="installPrompt">
         <p>Install Daddechni for better experience</p>
@@ -1311,13 +1397,19 @@
                         <li><a href="#" id="buddiesBtn"><i class="fas fa-users"></i> Travel Buddies</a></li>
                     </ul>
                 </nav>
-                <div class="auth-buttons">
+                <div class="auth-buttons" id="authButtons">
                     <button id="loginBtn"><i class="fas fa-sign-in-alt"></i> Login</button>
                     <button id="registerBtn"><i class="fas fa-user-plus"></i> Register</button>
+                </div>
+                <div class="user-greeting" id="userGreeting">
+                    <i class="fas fa-user-circle"></i>
+                    <span id="greetingName"></span>
+                    <button class="logout-btn" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</button>
                 </div>
             </div>
         </div>
     </header>
+    <div class="zellige-divider"></div>
 
     <section class="hero">
         <div class="container">
@@ -2097,20 +2189,96 @@
             // Form submissions
             const loginForm = document.getElementById('loginForm');
             const registerForm = document.getElementById('registerForm');
+            const authButtons = document.getElementById('authButtons');
+            const userGreeting = document.getElementById('userGreeting');
+            const greetingName = document.getElementById('greetingName');
+            const logoutBtn = document.getElementById('logoutBtn');
+
+            // Check if already logged in
+            const storedUser = localStorage.getItem('dadechniUser');
+            if (storedUser) {
+                showUserGreeting(JSON.parse(storedUser).name);
+            }
+
+            function showUserGreeting(name) {
+                if (authButtons) authButtons.style.display = 'none';
+                if (userGreeting) userGreeting.classList.add('visible');
+                if (greetingName) greetingName.textContent = 'Welcome, ' + name;
+            }
+
+            function showToast(msg, type = 'success') {
+                const toast = document.getElementById('toast');
+                const toastMsg = document.getElementById('toastMsg');
+                if (!toast || !toastMsg) return;
+                toast.className = 'toast ' + type;
+                toastMsg.textContent = msg;
+                setTimeout(() => { toast.className = 'toast'; }, 3500);
+            }
+
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', () => {
+                    localStorage.removeItem('dadechniUser');
+                    if (authButtons) authButtons.style.display = '';
+                    if (userGreeting) userGreeting.classList.remove('visible');
+                    showToast('You have been logged out.', 'info');
+                });
+            }
 
             if (loginForm) {
-                loginForm.addEventListener('submit', (e) => {
+                loginForm.addEventListener('submit', async (e) => {
                     e.preventDefault();
-                    alert('Login functionality would be implemented here');
-                    if (loginModal) loginModal.style.display = 'none';
+                    const email = document.getElementById('loginEmail').value.trim();
+                    const password = document.getElementById('loginPassword').value;
+                    try {
+                        const res = await fetch('http://localhost:3001/api/auth/login', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ email, password })
+                        });
+                        const data = await res.json();
+                        if (res.ok) {
+                            localStorage.setItem('dadechniUser', JSON.stringify({ name: data.name, email: data.email, token: data.token }));
+                            if (loginModal) loginModal.style.display = 'none';
+                            showUserGreeting(data.name);
+                            showToast('Welcome back, ' + data.name + '! 🌟', 'success');
+                        } else {
+                            showToast(data.message || 'Login failed. Check your credentials.', 'error');
+                        }
+                    } catch (err) {
+                        showToast('Cannot connect to server. Make sure the backend is running.', 'error');
+                    }
                 });
             }
 
             if (registerForm) {
-                registerForm.addEventListener('submit', (e) => {
+                registerForm.addEventListener('submit', async (e) => {
                     e.preventDefault();
-                    alert('Registration functionality would be implemented here');
-                    if (registerModal) registerModal.style.display = 'none';
+                    const name = document.getElementById('registerName').value.trim();
+                    const email = document.getElementById('registerEmail').value.trim();
+                    const password = document.getElementById('registerPassword').value;
+                    const confirm = document.getElementById('registerConfirm').value;
+                    if (password !== confirm) {
+                        showToast('Passwords do not match!', 'error');
+                        return;
+                    }
+                    try {
+                        const res = await fetch('http://localhost:3001/api/auth/register', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ name, email, password })
+                        });
+                        const data = await res.json();
+                        if (res.ok) {
+                            localStorage.setItem('dadechniUser', JSON.stringify({ name: data.name, email: data.email, token: data.token }));
+                            if (registerModal) registerModal.style.display = 'none';
+                            showUserGreeting(data.name);
+                            showToast('Account created! Welcome to Dadechni, ' + data.name + ' 🎉', 'success');
+                        } else {
+                            showToast(data.message || 'Registration failed. Try again.', 'error');
+                        }
+                    } catch (err) {
+                        showToast('Cannot connect to server. Make sure the backend is running.', 'error');
+                    }
                 });
             }
 
